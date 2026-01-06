@@ -38,4 +38,4 @@ def recibir_inventario(items: List[schemas.InventarioItemCreate], db: Session = 
 # ---------------------- SERVIDOR ----------------------
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=3000)
