@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import text
+from sqlalchemy import text  # Importación necesaria
 from typing import List
 import models
 
@@ -23,3 +23,13 @@ def insertar_inventario(db: Session, items: List[dict]):
             cantidad=float(item["cantidad"]),
         ))
     db.commit()
+
+def obtener_productos_paginado(db: Session, skip: int = 0, limit: int = 10000):
+    query = """
+        SELECT codigo_barras_linea as codigo_barras, item, descripcion, unidad_medida, unidad_despacho
+        FROM control_inventarios.w_productos
+        ORDER BY item
+        LIMIT :limit OFFSET :skip
+    """
+    # CORRECCIÓN: Se agrega text(query) para que SQLAlchemy 2.0 lo acepte
+    return db.execute(text(query), {"skip": skip, "limit": limit}).fetchall()

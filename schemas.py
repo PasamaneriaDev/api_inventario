@@ -8,7 +8,7 @@ class Bodega(BaseModel):
 
 
 class Producto(BaseModel):
-    codigo_barras: str
+    codigo_barras: Optional[str] = None
     item: str
     descripcion: str
     unidad_medida: Optional[str] = None
