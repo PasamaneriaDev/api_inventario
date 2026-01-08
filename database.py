@@ -1,8 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# 🔹 Ajusta según tu motor de base de datos
-# PostgreSQL
 DATABASE_URL = "postgresql+psycopg2://postgres:541015@192.168.1.239:5432/pasamaneria"
 
 engine = create_engine(DATABASE_URL)

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import text  # Importación necesaria
+from sqlalchemy import text
 from typing import List
 from datetime import datetime
 import models

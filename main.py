@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from sqlalchemy import text  # <--- IMPORTANTE: Necesario para SQL puro
+from sqlalchemy import text
 from fastapi.responses import HTMLResponse
 from typing import List
 import database
