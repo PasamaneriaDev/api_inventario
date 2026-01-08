@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text  # Importación necesaria
 from typing import List
+from datetime import datetime
 import models
 
 def obtener_bodegas(db: Session):
@@ -16,17 +17,26 @@ def obtener_ubicaciones(db: Session):
 def insertar_inventario(db: Session, items: List[dict]):
     for item in items:
         db.add(models.InventarioPaso(
+            cod_almacen=item["cod_almacen"],
+            num_linea=item["num_linea"],
             bodega=item["bodega"],
-            ubicacion=item["ubicacion"],
-            codigo=item["codigo"],
+            area=item["area"],
+            codigo_barras=item["codigo_barras"],
+            cod_item=item["cod_item"],
             descripcion=item["descripcion"],
+            stkumid=item.get("stkumid", ""),
+            uniddesp=float(item.get("uniddesp", 0)),
             cantidad=float(item["cantidad"]),
+            computador=item.get("computador", "API"),
+            adduser=item.get("adduser", "api_user"),
+            adddate=item.get("adddate", datetime.now().strftime("%Y-%m-%d")),
+            addtime=item.get("addtime", datetime.now().strftime("%H:%M:%S"))
         ))
     db.commit()
 
 def obtener_productos_paginado(db: Session, skip: int = 0, limit: int = 10000):
     query = """
-        SELECT codigo_barras_linea as codigo_barras, item, descripcion, unidad_medida, unidad_despacho
+        SELECT codigo_barras_linea, codigo_barras_obsoleto, codigo_barras_paquete, item, descripcion, unidad_medida, unidad_despacho
         FROM control_inventarios.w_productos
         ORDER BY item
         LIMIT :limit OFFSET :skip
