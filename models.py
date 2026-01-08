@@ -1,8 +1,10 @@
 from sqlalchemy import Column, Integer, String, Float
+from datetime import datetime
 from database import Base
 
 class InventarioPaso(Base):
-    __tablename__ = "control_inventarios.inventario_almacences"
+    __tablename__ = "inventario_almacences" 
+    __table_args__ = {"schema": "control_inventarios"}
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     cod_almacen = Column(String(255))
@@ -17,5 +19,5 @@ class InventarioPaso(Base):
     cantidad = Column(Float)
     computador = Column(String(255))
     adduser = Column(String(255))
-    adddate = Column(String(255))   
-    addtime = Column(String(255))
+    adddate = Column(String(255), default=lambda: datetime.now().strftime("%Y-%m-%d"))
+    addtime = Column(String(255), default=lambda: datetime.now().strftime("%H:%M:%S"))
